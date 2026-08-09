@@ -1,0 +1,5 @@
+# Environment configuration file
+.env
+
+# Vendor / dependencies
+vendor/

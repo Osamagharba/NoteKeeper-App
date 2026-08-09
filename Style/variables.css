@@ -1,0 +1,13 @@
+:root {
+  --primary-bg-color: #0f172a;
+  --secondary-bg-color: rgba(255, 255, 255, 0.04);
+  --input-bg-color: rgba(255, 255, 255, 0.05);
+  --primary-border-color: rgba(255, 255, 255, 0.08);
+  --input-border-color: rgba(255, 255, 255, 0.1);
+  --border-radius: 10px;
+  --btn-bg-color: linear-gradient(90deg, #3b82f6, #6366f1);
+  --main-font: 'Inter', sans-serif;
+  --titles-color: #94a3b8;
+  --input-color: #e2e8f0;
+  --placeholder-color: #475569;
+}
