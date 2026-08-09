@@ -105,7 +105,13 @@ NoteKeeper/
    ```
 
 3. **Configure Environment Variables**
-   Update the `.env` file in the project root directory with your database connection details:
+   Create a `.env` file in the root directory based on the `.env.example` template:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Update the `.env` file with your local database credentials:
 
    ```env
    DB_HOST='localhost'
@@ -113,6 +119,7 @@ NoteKeeper/
    DB_PASS=''
    DB_NAME='note_taking'
    ```
+
 
 4. **Run the Application**
    Place the project folder inside your web server directory (e.g., `xampp/htdocs/NoteKeeper-PHP`) and navigate to:
