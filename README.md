@@ -1,4 +1,4 @@
-# 📝 NoteKeeper – Modern & Secure PHP Note-Taking Web Application
+# NoteKeeper – Modern & Secure PHP Note-Taking Web Application
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.0%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
@@ -10,19 +10,19 @@
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔐 **Secure User Authentication**: Full Registration, Login, and Logout flow powered by `password_hash()` and `password_verify()`.
-- 🛡️ **SQL Injection Protection**: 100% prepared statements (`mysqli_prepare` & `mysqli_stmt_bind_param`) for all database operations.
-- ⚙️ **Environment Configuration**: Dynamic `.env` configuration parser ensuring sensitive database credentials are kept out of source control.
-- 🎨 **4-Tier Modular CSS Architecture**: Clean separation into `variables.css`, `global.css`, `components.css`, and page-specific stylesheets.
-- 📱 **Mobile-First Responsive Layout**: Optimized UI layout that seamlessly adapts across mobile, tablet, and desktop screens.
-- ⚡ **Front-End & Back-End Validation**: Strict client-side validation (`camelCase` JS controllers) paired with robust back-end parameter verification.
-- 📌 **Dynamic Note Categorization**: Dynamic color coding for note cards with interactive deletion and character-length enforcement.
+- **Secure User Authentication**: Full Registration, Login, and Logout flow powered by `password_hash()` and `password_verify()`.
+- **SQL Injection Protection**: 100% prepared statements (`mysqli_prepare` & `mysqli_stmt_bind_param`) for all database operations.
+- **Environment Configuration**: Dynamic `.env` configuration parser ensuring sensitive database credentials are kept out of source control.
+- **4-Tier Modular CSS Architecture**: Clean separation into `variables.css`, `global.css`, `components.css`, and page-specific stylesheets.
+- **Mobile-First Responsive Layout**: Optimized UI layout that seamlessly adapts across mobile, tablet, and desktop screens.
+- **Front-End & Back-End Validation**: Strict client-side validation (`camelCase` JS controllers) paired with robust back-end parameter verification.
+- **Dynamic Note Categorization**: Dynamic color coding for note cards with interactive deletion and character-length enforcement.
 
 ---
 
-## 🏗️ Architecture & Project Structure
+## Architecture & Project Structure
 
 The project follows a clean directory structure separating CSS design tokens, back-end logic, front-end controllers, and configuration files:
 
@@ -55,7 +55,7 @@ NoteKeeper/
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Back-End**: PHP 8.x (Procedural Architecture)
 - **Database**: MySQL / MariaDB (MySQLi driver with Prepared Statements)
@@ -65,7 +65,7 @@ NoteKeeper/
 
 ---
 
-## 🚀 Getting Started & Installation
+## Getting Started & Installation
 
 ### Prerequisites
 
@@ -122,7 +122,7 @@ NoteKeeper/
 
 ---
 
-## 🔒 Security Best Practices Implemented
+## Security Best Practices Implemented
 
 - **Prepared Statements**: Eliminates SQL Injection risks across user inputs.
 - **BCrypt Password Hashing**: Passwords stored using `PASSWORD_DEFAULT`.
@@ -132,6 +132,6 @@ NoteKeeper/
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
