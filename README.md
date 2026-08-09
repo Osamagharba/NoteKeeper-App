@@ -1,4 +1,4 @@
-# NoteKeeper – Modern & Secure PHP Note-Taking Web Application
+# 📝 NoteKeeper – Modern & Secure PHP Note-Taking Web Application
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.0%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
@@ -10,135 +10,94 @@
 
 ---
 
-## Features
+## Technical Overview
 
-- **Secure User Authentication**: Full Registration, Login, and Logout flow powered by `password_hash()` and `password_verify()`.
-- **SQL Injection Protection**: 100% prepared statements (`mysqli_prepare` & `mysqli_stmt_bind_param`) for all database operations.
-- **Environment Configuration**: Dynamic `.env` configuration parser ensuring sensitive database credentials are kept out of source control.
-- **4-Tier Modular CSS Architecture**: Clean separation into `variables.css`, `global.css`, `components.css`, and page-specific stylesheets.
-- **Mobile-First Responsive Layout**: Optimized UI layout that seamlessly adapts across mobile, tablet, and desktop screens.
-- **Front-End & Back-End Validation**: Strict client-side validation (`camelCase` JS controllers) paired with robust back-end parameter verification.
-- **Dynamic Note Categorization**: Dynamic color coding for note cards with interactive deletion and character-length enforcement.
+The application is structured around a procedural PHP architecture that enforces secure data persistence, modular UI rendering, and environment isolation.
+
+### Key Capabilities
+
+- **User Authentication**: Full registration, login, and session-managed logout workflow powered by PHP's native `password_hash()` and `password_verify()` functions.
+- **SQL Injection Prevention**: All persistent queries utilize MySQLi prepared statements (`mysqli_prepare` and `mysqli_stmt_bind_param`) with explicit parameter type binding.
+- **Environment Configuration**: Dynamic environment parser in `includs/config.php` that loads configuration keys into `$_ENV` and `putenv()`, keeping credentials separated from application logic.
+- **4-Tier CSS Architecture**: Modular styling layout structured into design tokens (`variables.css`), global base resets (`global.css`), shared UI elements (`components.css`), and page-specific rules.
+- **Responsive Interface**: Mobile-first fluid grid and flexbox layout designed to maintain usability across desktop, tablet, and mobile viewports.
+- **Client & Server Validation**: Client-side validation controllers (`camelCase` naming conventions) paired with server-side validation and sanitized responses.
 
 ---
 
-## Architecture & Project Structure
+## Application Architecture & Directory Structure
 
-The project follows a clean directory structure separating CSS design tokens, back-end logic, front-end controllers, and configuration files:
+The project follows a clean separation of concerns across configurations, core logic, controllers, and stylesheets:
 
 ```text
 NoteKeeper/
-├── .env                  # Environment configuration (DB credentials)
-├── .gitignore            # Git exclusion rules
-├── index.php             # Login page controller & view
-├── register.php          # User registration controller & view
-├── Note-Taking-page.php  # Authenticated user dashboard controller & view
-├── logout.php            # Session destruction endpoint
+├── .env.example          # Template schema for environment variables
+├── .gitignore            # Git exclusion rules preventing credential tracking
+├── schema.sql            # Database creation schema for users and notes tables
+├── index.php             # Login page controller and view
+├── register.php          # Registration page controller and view
+├── Note-Taking-page.php  # Authenticated user dashboard controller and view
+├── logout.php            # Session termination endpoint
 │
 ├── includs/
-│   ├── config.php        # Environment loader & DB constants configuration
-│   └── auth.php          # Authentication, session manager & note CRUD logic
+│   ├── config.php        # Environment loader and database constant definitions
+│   └── auth.php          # Core authentication logic, session handling, and CRUD operations
 │
 ├── Script/
 │   ├── index.js          # Login form validation controller
 │   ├── register.js       # Registration form validation controller
-│   └── Note-Taking-page.js # Dashboard interaction & dynamic styling controller
+│   └── Note-Taking-page.js # Dashboard interaction and dynamic note styling controller
 │
 └── Style/
-    ├── variables.css     # CSS custom properties (Color palette & tokens)
-    ├── global.css        # Base reset, typography, and scrollbar styling
-    ├── components.css    # Shared UI components (Inputs, Buttons, Cards, Flash msgs)
-    ├── index.css         # Page-specific styles for Login
-    ├── register.css      # Page-specific styles for Register
-    └── Note-Taking-page.css # Page-specific styles for Notes Dashboard
+    ├── variables.css     # Design tokens (Color palette, typography, radii)
+    ├── global.css        # Base reset rules, body defaults, and custom scrollbar
+    ├── components.css    # Shared component classes (Inputs, buttons, flash alerts)
+    ├── index.css         # Login page layout and presentation
+    ├── register.css      # Registration page layout and presentation
+    └── Note-Taking-page.css # Dashboard layout, navigation bar, and note cards
 ```
 
 ---
 
-## Tech Stack
+## Configuration & Environment Isolation
 
-- **Back-End**: PHP 8.x (Procedural Architecture)
+Application configuration relies on environment variables loaded at runtime from a local `.env` configuration file:
+
+- **Security Isolation**: Environment files containing database credentials are excluded from version control via `.gitignore`.
+- **Template Schema**: The `.env.example` file outlines the expected configuration keys (`DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`) without exposing sensitive infrastructure details.
+- **Runtime Binding**: The `loadEnv()` helper function inside `includs/config.php` parses environment key-value pairs at application bootstrap.
+
+---
+
+## Database Architecture
+
+The relational database model consists of two primary tables linked via user ownership:
+
+- **`users` Table**: Stores primary user account records, including unique usernames, BCrypt hashed passwords, and creation timestamps.
+- **`notes` Table**: Stores note title, note content, creation timestamps, and a `user_id` column establishing relational association with the user account.
+- **Data Schema File**: Database table structures are defined in `schema.sql` for initial database deployment.
+
+---
+
+## Security Model
+
+- **Prepared Statements**: Parameterized MySQL queries prevent SQL injection vulnerabilities.
+- **Password Security**: Passwords are hashed using `PASSWORD_DEFAULT` (BCrypt) prior to storage.
+- **Session Security**: Session identifiers are regenerated upon authentication (`session_regenerate_id(true)`) to mitigate session fixation risks.
+- **Output Sanitization**: User-generated content rendered in views is sanitized using `htmlspecialchars()` with `ENT_QUOTES` and `UTF-8` encoding to prevent Cross-Site Scripting (XSS).
+
+---
+
+## Tech Stack Summary
+
+- **Back-End**: PHP 8.x
 - **Database**: MySQL / MariaDB (MySQLi driver with Prepared Statements)
-- **Front-End**: Vanilla JavaScript (ES6+), HTML5
-- **Styling**: Vanilla CSS3 (Modular 4-tier Architecture, Flexbox, Grid, Media Queries)
-- **Icons & Fonts**: FontAwesome 6.5.1, Google Fonts (Inter)
-
----
-
-## Getting Started & Installation
-
-### Prerequisites
-
-- [XAMPP](https://www.apachefriends.org/) / WAMP / LAMP stack running **PHP 8.0+** and **MySQL**.
-- Web Browser (Chrome, Firefox, Edge, Safari).
-
-### Setup Instructions
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-username/NoteKeeper-PHP.git
-   cd NoteKeeper-PHP
-   ```
-
-2. **Database Setup**
-   Create a MySQL database named `note_taking` and execute the following schema:
-
-   ```sql
-   CREATE DATABASE IF NOT EXISTS note_taking;
-   USE note_taking;
-
-   CREATE TABLE IF NOT EXISTS users (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       username VARCHAR(50) NOT NULL UNIQUE,
-       password VARCHAR(255) NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-   CREATE TABLE IF NOT EXISTS notes (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       title VARCHAR(100) NOT NULL,
-       body TEXT NOT NULL,
-       user_id INT NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-   ```
-
-3. **Configure Environment Variables**
-   Create a `.env` file in the root directory based on the `.env.example` template:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Update the `.env` file with your local database credentials:
-
-   ```env
-   DB_HOST='localhost'
-   DB_USER='root'
-   DB_PASS=''
-   DB_NAME='note_taking'
-   ```
-
-
-4. **Run the Application**
-   Place the project folder inside your web server directory (e.g., `xampp/htdocs/NoteKeeper-PHP`) and navigate to:
-   ```text
-   http://localhost/NoteKeeper-PHP/index.php
-   ```
-
----
-
-## Security Best Practices Implemented
-
-- **Prepared Statements**: Eliminates SQL Injection risks across user inputs.
-- **BCrypt Password Hashing**: Passwords stored using `PASSWORD_DEFAULT`.
-- **Session ID Regeneration**: Prevents session fixation attacks upon login.
-- **Environment Isolation**: Database credentials strictly stored in `.env` and ignored by Git via `.gitignore`.
-- **XSS Prevention**: HTML output escaped using `htmlspecialchars()`.
+- **Front-End**: Vanilla JavaScript (ES6+)
+- **Styling**: Modular CSS3 (Design tokens, Flexbox, CSS Grid)
+- **Assets**: FontAwesome 6.5.1, Google Fonts (Inter)
 
 ---
 
 ## License
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+This project is open-source software licensed under the [MIT License](LICENSE).
